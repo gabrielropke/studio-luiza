@@ -1,7 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:studio_luiza_web/widgets/page_two_agenda/cilios_page.dart';
+import 'package:studio_luiza_web/widgets/page_two_agenda/model_widget_pagetwo.dart';
 import 'package:studio_luiza_web/widgets/textfield_widget.dart';
 
 class ModelWidget extends StatefulWidget {
@@ -23,6 +23,7 @@ class _ModelWidgetState extends State<ModelWidget> {
   int maquiagem = 1;
   double sobrancelha = 0.3;
   int manutencao = 2;
+  DateTime selectedDate = DateTime.now();
 
   bool isMobilesmaller(BuildContext context) =>
       MediaQuery.of(context).size.width <= 415;
@@ -71,31 +72,16 @@ class _ModelWidgetState extends State<ModelWidget> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => selectedContainer == 'Maquiagem'
-                  ? Text('data')
-                  : selectedContainer == 'Sobrancelha'
-                      ? Text('data')
-                      : selectedContainer == 'Cílios'
-                          ? cilios_page(
-                              servico: 'Cílios',
-                              horario: selectedTime,
-                              nome: controllerNome.text,
-                              email: controllerEmail.text,
-                              telefone: controllerTelefone.text,
-                            )
-                          : selectedContainer == 'Manutenção'
-                              ? Text('data')
-                              : Text('data')));
+              builder: (context) => ModelWidgetPageTwo(
+                    servico: selectedContainer,
+                    horario: selectedTime,
+                    nome: controllerNome.text,
+                    email: controllerEmail.text,
+                    telefone: controllerTelefone.text,
+                    data: selectedDate,
+                  )));
     }
   }
-
-  // enviarMensagem() async {
-  //   await FirebaseFirestore.instance
-  //       .collection('teste')
-  //       .doc()
-  //       .set({'deu certo?': 'Deu certo sim!'});
-  //   print('foi');
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +94,11 @@ class _ModelWidgetState extends State<ModelWidget> {
             initialDate: DateTime.now(),
             locale: 'pt_br',
             activeColor: const Color(0xffedadc0),
-            onDateChange: (selectedDate) {},
+            onDateChange: (selectedDate) {
+              setState(() {
+                this.selectedDate = selectedDate;
+              });
+            },
           ),
           const SizedBox(height: 40),
           const Text(

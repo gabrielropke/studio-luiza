@@ -7,10 +7,19 @@ import 'package:studio_luiza_web/pages/thankyou_page.dart';
 class ResumePage extends StatefulWidget {
   final String servico;
   final String subServico;
+  final String observacao;
   final TimeOfDay horario;
+  final DateTime data;
   final String nome;
   final String email;
   final String telefone;
+  final String ruaController;
+  final String numeroController;
+  final String ufController;
+  final String cidadeController;
+  final String cepController;
+  final String bairroController;
+  final String compController;
   const ResumePage(
       {super.key,
       required this.servico,
@@ -18,7 +27,16 @@ class ResumePage extends StatefulWidget {
       required this.nome,
       required this.email,
       required this.telefone,
-      required this.subServico});
+      required this.subServico,
+      required this.ruaController,
+      required this.numeroController,
+      required this.ufController,
+      required this.cidadeController,
+      required this.cepController,
+      required this.bairroController,
+      required this.compController,
+      required this.data,
+      required this.observacao});
 
   @override
   State<ResumePage> createState() => _ResumePageState();
@@ -28,9 +46,18 @@ class _ResumePageState extends State<ResumePage> {
   late String servico;
   late String subServico;
   late TimeOfDay horario;
+  late DateTime data;
   late String nome;
   late String email;
   late String telefone;
+  late String ruaController;
+  late String numeroController;
+  late String ufController;
+  late String cidadeController;
+  late String cepController;
+  late String bairroController;
+  late String compController;
+  late String observacao;
 
   int cilios = 3;
   int maquiagem = 1;
@@ -49,12 +76,21 @@ class _ResumePageState extends State<ResumePage> {
     DocumentReference documentReference =
         await FirebaseFirestore.instance.collection('agendamentos').add({
       'servico': servico,
+      'observacao': observacao,
       'subservico': subServico,
       'horario': formatTimeOfDay(horario),
+      'data': data,
       'nome': nome,
       'email': email,
       'telefone': telefone,
       'status': 'pendente',
+      'cep': cepController,
+      'estado': ufController,
+      'cidade': cidadeController,
+      'bairro': bairroController,
+      'rua': ruaController,
+      'numero': numeroController,
+      'complemento': compController,
     });
 
     String novoId = documentReference.id;
@@ -71,6 +107,8 @@ class _ResumePageState extends State<ResumePage> {
             desc:
                 'Sua solicitação foi enviada para Luiza, em até 24hrs ela entrará em contato!',
             btnOkOnPress: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => ThankyouPage()));
               enviarDadosFirebase();
             },
             btnOkText: 'Ok')
@@ -79,7 +117,6 @@ class _ResumePageState extends State<ResumePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     servico = widget.servico;
     horario = widget.horario;
@@ -87,6 +124,15 @@ class _ResumePageState extends State<ResumePage> {
     email = widget.email;
     telefone = widget.telefone;
     subServico = widget.subServico;
+    ruaController = widget.ruaController;
+    ufController = widget.ufController;
+    cidadeController = widget.cidadeController;
+    bairroController = widget.bairroController;
+    cepController = widget.cepController;
+    numeroController = widget.numeroController;
+    compController = widget.compController;
+    data = widget.data;
+    observacao = widget.observacao;
   }
 
   @override
@@ -113,15 +159,17 @@ class _ResumePageState extends State<ResumePage> {
             const SizedBox(height: 15),
             container_widget(
               titulo: 'Horário',
-              subtitulo: formatTimeOfDay(horario),
+              subtitulo:
+                  '${DateFormat('dd/MM/yyyy').format(data)} às ${formatTimeOfDay(horario)}',
               icone: const Icon(Icons.access_time_rounded),
             ),
             const SizedBox(height: 15),
-            const container_widget(
+            container_widget(
               titulo: 'Endereço',
-              subtitulo:
-                  'R. Bom Jesus, 157 - Barro Preto,\nMariana - MG, 35420-000',
-              icone: Icon(Icons.share_location_rounded),
+              subtitulo: subServico == 'Em domicílio'
+                  ? '$ruaController, $numeroController - $bairroController,\n$cidadeController - $ufController, $cepController'
+                  : 'R. Bom Jesus, 157 - Barro Preto,\nMariana - MG, 35420-000',
+              icone: const Icon(Icons.share_location_rounded),
             ),
             const SizedBox(height: 15),
             Container(
@@ -135,27 +183,7 @@ class _ResumePageState extends State<ResumePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      servico == 'Cílios' && subServico == 'Volume Brasileiro'
-                          ? 'R\$100,00'
-                          : servico == 'Cílios' &&
-                                  subServico == 'Volume Europeu'
-                              ? 'R\$110,00'
-                              : servico == 'Cílios' &&
-                                      subServico == 'Volume Egípcio'
-                                  ? 'R\$120,00'
-                                  : servico == 'Cílios' &&
-                                          subServico == 'Volume Luxo'
-                                      ? 'R\$130,00'
-                                      : servico == 'Cílios' &&
-                                              subServico == 'Volume Brasileiro'
-                                          ? 'R\$140,00'
-                                          : 'Consultar valor',
-                      style: const TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontSize: 25,
-                          color: Colors.black87),
-                    ),
+                    PriceWidget(servico: servico, subServico: subServico),
                     const SizedBox(height: 5),
                     const Text(
                       'Pagamento no local e somente após o atendimento!',
@@ -183,7 +211,6 @@ class _ResumePageState extends State<ResumePage> {
               texto: 'Editar pedido',
               funcao: () {
                 Navigator.pop(context);
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ThankyouPage()));
               },
               corBotao: Colors.white,
               corTexto: Colors.black54,
@@ -287,5 +314,57 @@ class BotaoWidget extends StatelessWidget {
             ),
           ),
         ));
+  }
+}
+
+class PriceWidget extends StatelessWidget {
+  const PriceWidget(
+      {super.key, required this.servico, required this.subServico});
+
+  final String servico;
+  final String subServico;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      servico == 'Cílios' && subServico == 'Volume Brasileiro'
+          ? 'R\$100,00'
+          : servico == 'Cílios' && subServico == 'Volume Europeu'
+              ? 'R\$110,00'
+              : servico == 'Cílios' && subServico == 'Volume Egípcio'
+                  ? 'R\$120,00'
+                  : servico == 'Cílios' && subServico == 'Volume Luxo'
+                      ? 'R\$130,00'
+                      : servico == 'Cílios' && subServico == 'Volume Brasileiro'
+                          ? 'R\$140,00'
+                          : servico == 'Maquiagem' &&
+                                  subServico == 'Studio Luiza'
+                              ? 'R\$130,00'
+                              : servico == 'Maquiagem' &&
+                                      subServico == 'Em domicílio'
+                                  ? 'R\$150,00'
+                                  : servico == 'Manutenção' &&
+                                          subServico == 'Volume Brasileiro'
+                                      ? 'R\$50,00'
+                                      : servico == 'Manutenção' &&
+                                              subServico == 'Volume Europeu'
+                                          ? 'R\$60,00'
+                                          : servico == 'Manutenção' &&
+                                                  subServico == 'Volume Egípcio'
+                                              ? 'R\$70,00'
+                                              : servico == 'Manutenção' &&
+                                                      subServico ==
+                                                          'Volume Luxo'
+                                                  ? 'R\$80,00'
+                                                  : servico == 'Manutenção' &&
+                                                          subServico ==
+                                                              'Volume Brasileiro'
+                                                      ? 'R\$90,00'
+                                                      : servico == 'Sobrancelha'
+                                                          ? 'Finalizar este método'
+                                                          : 'Finalizar este método',
+      style: const TextStyle(
+          fontFamily: 'Montserrat', fontSize: 25, color: Colors.black87),
+    );
   }
 }

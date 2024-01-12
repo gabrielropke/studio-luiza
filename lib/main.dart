@@ -1,17 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:studio_luiza_web/pages/agendar_pageone.dart';
-import 'package:studio_luiza_web/pages/resume_page.dart';
-import 'package:studio_luiza_web/widgets/page_two_agenda/cilios_page.dart';
+import 'package:studio_luiza_web/widgets/page_two_agenda/model_widget_pagetwo.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: const FirebaseOptions(
-          apiKey: "AIzaSyBD5yiA4m9tI4MVE37OW4gV-83FpR858TE",
-          projectId: "studioluiza-ce668",
-          messagingSenderId: "1057345054637",
-          appId: "1:1057345054637:web:b533b8b4b5882e86746324"));
+          apiKey: "AIzaSyByq_m7sD7oNsbu9t_P02LWd9JwXtbuCVo",
+          projectId: "studio-luiza",
+          messagingSenderId: "214428194508",
+          appId: "1:214428194508:web:7ecba1ab769fabaa905469"));
   runApp(const MyApp());
 }
 
@@ -26,6 +25,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
         ),
-        home: const AgendarPageOne());
+        home: AgendarPageOne());
   }
 }
+
+// home: cilios_page(servico: 'servico', horario: TimeOfDay(hour: 12, minute: 12), nome: 'nome', email: 'email', telefone: 'telefone'));
