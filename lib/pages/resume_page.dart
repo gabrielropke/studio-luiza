@@ -141,81 +141,83 @@ class _ResumePageState extends State<ResumePage> {
       backgroundColor: Color.fromARGB(255, 243, 243, 243),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
-        child: Column(
-          children: [
-            const Text(
-              'Resumo',
-              style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 22,
-                  color: Colors.black87),
-            ),
-            const SizedBox(height: 15),
-            container_widget(
-              titulo: 'Atendimento',
-              subtitulo: '$servico - $subServico',
-              icone: const Icon(Icons.apps_rounded),
-            ),
-            const SizedBox(height: 15),
-            container_widget(
-              titulo: 'Horário',
-              subtitulo:
-                  '${DateFormat('dd/MM/yyyy').format(data)} às ${formatTimeOfDay(horario)}',
-              icone: const Icon(Icons.access_time_rounded),
-            ),
-            const SizedBox(height: 15),
-            container_widget(
-              titulo: 'Endereço',
-              subtitulo: subServico == 'Em domicílio'
-                  ? '$ruaController, $numeroController - $bairroController,\n$cidadeController - $ufController, $cepController'
-                  : 'R. Bom Jesus, 157 - Barro Preto,\nMariana - MG, 35420-000',
-              icone: const Icon(Icons.share_location_rounded),
-            ),
-            const SizedBox(height: 15),
-            Container(
-              height: 120,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(18)),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    PriceWidget(servico: servico, subServico: subServico),
-                    const SizedBox(height: 5),
-                    const Text(
-                      'Pagamento no local e somente após o atendimento!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: Colors.black45),
-                    ),
-                  ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const Text(
+                'Resumo',
+                style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 22,
+                    color: Colors.black87),
+              ),
+              const SizedBox(height: 15),
+              container_widget(
+                titulo: 'Atendimento',
+                subtitulo: '$servico - $subServico',
+                icone: const Icon(Icons.apps_rounded),
+              ),
+              const SizedBox(height: 15),
+              container_widget(
+                titulo: 'Horário',
+                subtitulo:
+                    '${DateFormat('dd/MM/yyyy').format(data)} às ${formatTimeOfDay(horario)}',
+                icone: const Icon(Icons.access_time_rounded),
+              ),
+              const SizedBox(height: 15),
+              container_widget(
+                titulo: 'Endereço',
+                subtitulo: subServico == 'Em domicílio'
+                    ? '$ruaController, $numeroController - $bairroController,\n$cidadeController - $ufController, $cepController'
+                    : 'R. Bom Jesus, 157 - Sala 06,\nMariana - MG, 35424-191',
+                icone: const Icon(Icons.share_location_rounded),
+              ),
+              const SizedBox(height: 15),
+              Container(
+                height: 120,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.white, borderRadius: BorderRadius.circular(18)),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      PriceWidget(servico: servico, subServico: subServico),
+                      const SizedBox(height: 5),
+                      const Text(
+                        'Pagamento no local e somente após o atendimento!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                            color: Colors.black45),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 40),
-            BotaoWidget(
-              texto: 'Enviar Solicitação',
-              funcao: () {
-                sucessAlert();
-              },
-              corBotao: const Color.fromARGB(255, 238, 163, 185),
-              corTexto: Colors.white,
-            ),
-            const SizedBox(height: 10),
-            BotaoWidget(
-              texto: 'Editar pedido',
-              funcao: () {
-                Navigator.pop(context);
-              },
-              corBotao: Colors.white,
-              corTexto: Colors.black54,
-            )
-          ],
+              const SizedBox(height: 40),
+              BotaoWidget(
+                texto: 'Enviar Solicitação',
+                funcao: () {
+                  sucessAlert();
+                },
+                corBotao: const Color.fromARGB(255, 238, 163, 185),
+                corTexto: Colors.white,
+              ),
+              const SizedBox(height: 10),
+              BotaoWidget(
+                texto: 'Editar pedido',
+                funcao: () {
+                  Navigator.pop(context);
+                },
+                corBotao: Colors.white,
+                corTexto: Colors.black54,
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -328,13 +330,13 @@ class PriceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       servico == 'Cílios' && subServico == 'Volume Brasileiro'
-          ? 'R\$100,00'
+          ? 'R\$130,00'
           : servico == 'Cílios' && subServico == 'Volume Europeu'
-              ? 'R\$110,00'
+              ? 'R\$150,00'
               : servico == 'Cílios' && subServico == 'Volume Egípcio'
-                  ? 'R\$120,00'
+                  ? 'R\$140,00'
                   : servico == 'Cílios' && subServico == 'Volume Luxo'
-                      ? 'R\$130,00'
+                      ? 'R\$160,00'
                       : servico == 'Cílios' && subServico == 'Volume Brasileiro'
                           ? 'R\$140,00'
                           : servico == 'Maquiagem' &&
@@ -345,10 +347,10 @@ class PriceWidget extends StatelessWidget {
                                   ? 'R\$150,00'
                                   : servico == 'Manutenção' &&
                                           subServico == 'Volume Brasileiro'
-                                      ? 'R\$50,00'
+                                      ? 'R\$65,00'
                                       : servico == 'Manutenção' &&
                                               subServico == 'Volume Europeu'
-                                          ? 'R\$60,00'
+                                          ? 'R\$75,00'
                                           : servico == 'Manutenção' &&
                                                   subServico == 'Volume Egípcio'
                                               ? 'R\$70,00'
@@ -356,13 +358,26 @@ class PriceWidget extends StatelessWidget {
                                                       subServico ==
                                                           'Volume Luxo'
                                                   ? 'R\$80,00'
-                                                  : servico == 'Manutenção' &&
+                                                  : servico == 'Sobrancelha' &&
                                                           subServico ==
-                                                              'Volume Brasileiro'
-                                                      ? 'R\$90,00'
-                                                      : servico == 'Sobrancelha'
-                                                          ? 'Finalizar este método'
-                                                          : 'Finalizar este método',
+                                                              'Design de sobrancelha'
+                                                      ? 'R\$20,00'
+                                                      : servico ==
+                                                                  'Sobrancelha' &&
+                                                              subServico ==
+                                                                  'Design com enna'
+                                                          ? 'R\$25,00'
+                                                          : servico ==
+                                                                      'Sobrancelha' &&
+                                                                  subServico ==
+                                                                      'Design com tintura'
+                                                              ? 'R\$30,00'
+                                                              : servico ==
+                                                                          'Sobrancelha' &&
+                                                                      subServico ==
+                                                                          'Brow Lamination'
+                                                                  ? 'R\$60,00'
+                                                                  : 'Verificar com studio',
       style: const TextStyle(
           fontFamily: 'Montserrat', fontSize: 25, color: Colors.black87),
     );

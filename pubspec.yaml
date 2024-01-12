@@ -79,6 +79,11 @@ flutter:
     - assets/images/cilios_europeu_04.jpg
     - assets/images/cilios_europeu_05.jpg
     - assets/images/cilios_europeu_06.jpg
+    - assets/images/cilios_luxo_01.jpg
+    - assets/images/cilios_luxo_02.jpg
+    - assets/images/cilios_luxo_03.jpg
+    - assets/images/cilios_luxo_04.jpg
+    - assets/images/cilios_luxo_05.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

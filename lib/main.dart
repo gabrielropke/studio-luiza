@@ -25,8 +25,22 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
         ),
-        home: AgendarPageOne());
+        home: ModelWidgetPageTwo(
+          servico: 'Cílios',
+          horario: TimeOfDay(hour: 12, minute: 12),
+          nome: 'nome',
+          email: 'email',
+          telefone: 'telefone',
+          data: DateTime.now(),
+        ));
   }
 }
 
-// home: cilios_page(servico: 'servico', horario: TimeOfDay(hour: 12, minute: 12), nome: 'nome', email: 'email', telefone: 'telefone'));
+// ModelWidgetPageTwo(
+//           servico: 'servico',
+//           horario: TimeOfDay(hour: 12, minute: 12),
+//           nome: 'nome',
+//           email: 'email',
+//           telefone: 'telefone',
+//           data: DateTime.now(),
+//         )

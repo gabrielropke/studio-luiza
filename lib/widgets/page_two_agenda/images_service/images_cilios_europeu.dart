@@ -10,12 +10,12 @@ class ImagesCiliosEuropeu extends StatefulWidget {
 
 class _ImagesCiliosEuropeuState extends State<ImagesCiliosEuropeu> {
   List<String> imagesCilios = [
-    'assets/images/cilios_Europeu_01.jpg',
-    'assets/images/cilios_Europeu_02.jpg',
-    'assets/images/cilios_Europeu_03.jpg',
-    'assets/images/cilios_Europeu_04.jpg',
-    'assets/images/cilios_Europeu_05.jpg',
-    'assets/images/cilios_Europeu_06.jpg',
+    'assets/images/cilios_europeu_01.jpg',
+    'assets/images/cilios_europeu_02.jpg',
+    'assets/images/cilios_europeu_03.jpg',
+    'assets/images/cilios_europeu_04.jpg',
+    'assets/images/cilios_europeu_05.jpg',
+    'assets/images/cilios_europeu_06.jpg',
   ];
 
   @override

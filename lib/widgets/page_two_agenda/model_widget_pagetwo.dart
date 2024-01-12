@@ -4,6 +4,7 @@ import 'package:studio_luiza_web/pages/resume_page.dart';
 import 'package:studio_luiza_web/widgets/page_two_agenda/endereco_cadastro.dart';
 import 'package:studio_luiza_web/widgets/page_two_agenda/images_service/images_cilios_brasileiro.dart';
 import 'package:studio_luiza_web/widgets/page_two_agenda/images_service/images_cilios_europeu.dart';
+import 'package:studio_luiza_web/widgets/page_two_agenda/images_service/images_cilios_luxo.dart';
 import 'package:studio_luiza_web/widgets/textfield_widget.dart';
 
 class ModelWidgetPageTwo extends StatefulWidget {
@@ -147,10 +148,12 @@ class _ModelWidgetPageTwoState extends State<ModelWidgetPageTwo> {
               if (servico == 'Cílios') buildCilios(context),
               if (servico == 'Manutenção') buildCilios(context),
               if (servico == 'Maquiagem') buildMaquiagem(context),
+              if (servico == 'Sobrancelha') buildSobrancelha(context),
               if (selectedContainer == 'Volume Brasileiro')
                 const ImagesCiliosBrasileiro(),
               if (selectedContainer == 'Volume Europeu')
                 const ImagesCiliosEuropeu(),
+              if (selectedContainer == 'Volume Luxo') const ImagesCiliosLuxo(),
               if (selectedContainer == 'Em domicílio')
                 CadastroEndereco(
                     ruaController: ruaController,
@@ -245,6 +248,51 @@ class _ModelWidgetPageTwoState extends State<ModelWidgetPageTwo> {
     );
   }
 
+  Widget buildSobrancelha(BuildContext context) {
+    return Column(
+      children: [
+        if (isMobilebigger(context))
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              buildContainer(texto: 'Design', width: 180),
+              const SizedBox(width: 15),
+              buildContainer(texto: 'Design com henna', width: 180),
+            ],
+          ),
+        if (isMobilesmaller(context))
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              buildContainer(texto: 'Design', width: 160),
+              const SizedBox(width: 15),
+              buildContainer(texto: 'Design com henna', width: 160),
+            ],
+          ),
+          const SizedBox(height: 15),
+          if (isMobilebigger(context))
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              buildContainer(texto: 'Design com tintura', width: 180),
+              const SizedBox(width: 15),
+              buildContainer(texto: 'Brow Lamination', width: 180),
+            ],
+          ),
+        if (isMobilesmaller(context))
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              buildContainer(texto: 'Design com tintura', width: 160),
+              const SizedBox(width: 15),
+              buildContainer(texto: 'Brow Lamination', width: 160),
+            ],
+          ),
+        const SizedBox(height: 30),
+      ],
+    );
+  }
+
   Widget buildCilios(BuildContext context) {
     return Column(
       children: [
@@ -254,7 +302,7 @@ class _ModelWidgetPageTwoState extends State<ModelWidgetPageTwo> {
             children: [
               buildContainer(texto: 'Volume Brasileiro', width: 180),
               const SizedBox(width: 15),
-              buildContainer(texto: 'Volume Luxo', width: 180),
+              buildContainer(texto: 'Volume Egípcio', width: 180),
             ],
           ),
         if (isMobilesmaller(context))
@@ -263,7 +311,7 @@ class _ModelWidgetPageTwoState extends State<ModelWidgetPageTwo> {
             children: [
               buildContainer(texto: 'Volume Brasileiro', width: 150),
               const SizedBox(width: 15),
-              buildContainer(texto: 'Volume Luxo', width: 150),
+              buildContainer(texto: 'Volume Egípcio', width: 150),
             ],
           ),
         const SizedBox(height: 15),
@@ -273,7 +321,7 @@ class _ModelWidgetPageTwoState extends State<ModelWidgetPageTwo> {
             children: [
               buildContainer(texto: 'Volume Europeu', width: 180),
               const SizedBox(width: 15),
-              buildContainer(texto: 'Volume Definir', width: 180),
+              buildContainer(texto: 'Volume Luxo', width: 180),
             ],
           ),
         if (isMobilesmaller(context))
@@ -282,18 +330,9 @@ class _ModelWidgetPageTwoState extends State<ModelWidgetPageTwo> {
             children: [
               buildContainer(texto: 'Volume Europeu', width: 150),
               const SizedBox(width: 15),
-              buildContainer(texto: 'Volume Definir', width: 150),
+              buildContainer(texto: 'Volume Luxo', width: 150),
             ],
           ),
-        const SizedBox(height: 15),
-        if (isMobilebigger(context))
-          Align(
-              alignment: Alignment.centerLeft,
-              child: buildContainer(texto: 'Volume Egípcio', width: 180)),
-        if (isMobilesmaller(context))
-          Align(
-              alignment: Alignment.centerLeft,
-              child: buildContainer(texto: 'Volume Egípcio', width: 150)),
         const SizedBox(height: 30),
       ],
     );
@@ -322,7 +361,7 @@ class _ModelWidgetPageTwoState extends State<ModelWidgetPageTwo> {
         ),
         child: Center(
           child: Text(
-            texto,
+            texto, textAlign: TextAlign.center,
             style: const TextStyle(
                 color: Colors.black, fontSize: 14, fontFamily: 'Montserrat'),
           ),
@@ -362,7 +401,7 @@ class ServiceText extends StatelessWidget {
             : servico == 'Cílios'
                 ? 'Qual cílios iremos fazer?'
                 : servico == 'Sobrancelha'
-                    ? 'Qual sobrancelha iremos fazer'
+                    ? 'Qual modelo iremos fazer?'
                     : servico == 'Manutenção'
                         ? 'Qual manutenção iremos fazer?'
                         : '',
