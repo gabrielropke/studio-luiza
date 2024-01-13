@@ -43,6 +43,7 @@ dependencies:
   awesome_dialog: ^3.2.0
   intl: ^0.18.1
   http: ^1.1.0
+  url_launcher: ^6.2.3
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +85,10 @@ flutter:
     - assets/images/cilios_luxo_03.jpg
     - assets/images/cilios_luxo_04.jpg
     - assets/images/cilios_luxo_05.jpg
+    - assets/images/icone_insta.png
+    - assets/images/icone_wpp.png
+    - assets/images/subtexto.png
+    - assets/images/homepage_imagem.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

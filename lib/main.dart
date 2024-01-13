@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:studio_luiza_web/pages/agendar_pageone.dart';
-import 'package:studio_luiza_web/widgets/page_two_agenda/model_widget_pagetwo.dart';
+import 'package:studio_luiza_web/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,14 +24,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
         ),
-        home: ModelWidgetPageTwo(
-          servico: 'Cílios',
-          horario: TimeOfDay(hour: 12, minute: 12),
-          nome: 'nome',
-          email: 'email',
-          telefone: 'telefone',
-          data: DateTime.now(),
-        ));
+        home: const HomePage());
   }
 }
 

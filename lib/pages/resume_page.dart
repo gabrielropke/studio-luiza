@@ -2,7 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:studio_luiza_web/pages/thankyou_page.dart';
+import 'package:studio_luiza_web/pages/home_page.dart';
 
 class ResumePage extends StatefulWidget {
   final String servico;
@@ -108,7 +108,7 @@ class _ResumePageState extends State<ResumePage> {
                 'Sua solicitação foi enviada para Luiza, em até 24hrs ela entrará em contato!',
             btnOkOnPress: () {
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => ThankyouPage()));
+                  MaterialPageRoute(builder: (context) => const HomePage()));
               enviarDadosFirebase();
             },
             btnOkText: 'Ok')
@@ -177,7 +177,8 @@ class _ResumePageState extends State<ResumePage> {
                 height: 120,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.circular(18)),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(18)),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
