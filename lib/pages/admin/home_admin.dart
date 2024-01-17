@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:studio_luiza_web/pages/admin/scroll_pedidos.dart';
 import 'package:studio_luiza_web/pages/home_page.dart';
 
 class HomeAdmin extends StatefulWidget {
@@ -10,8 +11,11 @@ class HomeAdmin extends StatefulWidget {
 }
 
 class _HomeAdminState extends State<HomeAdmin> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  List<String> agendamentosId = [];
+
   deslogarUsuario() {
-    FirebaseAuth auth = FirebaseAuth.instance;
     auth.signOut();
 
     Navigator.pushAndRemoveUntil(
@@ -23,61 +27,57 @@ class _HomeAdminState extends State<HomeAdmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 239, 239, 239),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        titleSpacing: 0,
-        title: const Text('Studio Luiza',
-            style: TextStyle(fontSize: 20, letterSpacing: 6)),
-        actions: [
-          IconButton(
-              onPressed: () {
-                deslogarUsuario();
-              },
-              icon: const Icon(Icons.exit_to_app))
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text('Item 1'),
-              onTap: () {
-                // Adicione a lógica para lidar com o clique no primeiro item do Drawer aqui.
-                Navigator.pop(context); // Fecha o Drawer
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Adicione a lógica para lidar com o clique no segundo item do Drawer aqui.
-                Navigator.pop(context); // Fecha o Drawer
-              },
-            ),
-            // Adicione mais itens do Drawer conforme necessário
+        backgroundColor: Color(0xFFEFEFEF),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          titleSpacing: 0,
+          title: const Text('Studio Luiza',
+              style: TextStyle(fontSize: 20, letterSpacing: 6)),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  deslogarUsuario();
+                },
+                icon: const Icon(Icons.exit_to_app))
           ],
         ),
-      ),
-      body: Column(
-        children: [
-          // Conteúdo principal aqui
-        ],
-      ),
-    );
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Text(
+                  'Drawer Header',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Text('Item 1'),
+                onTap: () {
+                  // Adicione a lógica para lidar com o clique no primeiro item do Drawer aqui.
+                  Navigator.pop(context); // Fecha o Drawer
+                },
+              ),
+              ListTile(
+                title: Text('Item 2'),
+                onTap: () {
+                  // Adicione a lógica para lidar com o clique no segundo item do Drawer aqui.
+                  Navigator.pop(context); // Fecha o Drawer
+                },
+              ),
+              // Adicione mais itens do Drawer conforme necessário
+            ],
+          ),
+        ),
+        body: const scroll_pedidos());
   }
 }
 

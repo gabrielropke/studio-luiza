@@ -67,84 +67,92 @@ class _LoginPageState extends State<LoginPage> {
         .show();
   }
 
+  bool isMobilesmaller(BuildContext context) =>
+      MediaQuery.of(context).size.width <= 450;
+  bool isMobilebigger(BuildContext context) =>
+      MediaQuery.of(context).size.width > 450;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const TextoWidget(
-              texto: 'Studio Luiza',
-              size: 52,
-              fontFamily: 'Montserrat',
-              letterSpacing: 5,
-              corTexto: Color(0xFF58578F),
-            ),
-            const TextoWidget(
-              texto: 'Acesso somente para equipe',
-              size: 16,
-              fontFamily: '',
-              letterSpacing: 5,
-              corTexto: Color(0xFF58578F),
-            ),
-            const SizedBox(height: 40),
-            SizedBox(
+        child: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+               TextoWidget(
+                texto: 'Studio Luiza',
+                size: isMobilesmaller(context) ? 40 : 52,
+                fontFamily: 'Montserrat',
+                letterSpacing: 5,
+                corTexto: Color(0xFF58578F),
+              ),
+               TextoWidget(
+                texto: 'Acesso somente para equipe',
+                size: isMobilesmaller(context) ? 12 : 16,
+                fontFamily: '',
+                letterSpacing: 5,
+                corTexto: Color(0xFF58578F),
+              ),
+              const SizedBox(height: 40),
+              SizedBox(
+                  width: 310,
+                  child: TextFieldLogin(
+                      prefixIcon: const Icon(
+                        Icons.email_outlined,
+                        color: Colors.black12,
+                      ),
+                      controller: controllerEmail,
+                      obscureText: false,
+                      keyboardType: TextInputType.emailAddress,
+                      hintText: 'Insira o seu e-mail')),
+              const SizedBox(height: 10),
+              SizedBox(
                 width: 310,
                 child: TextFieldLogin(
                     prefixIcon: const Icon(
-                      Icons.email_outlined,
+                      Icons.lock_outline,
                       color: Colors.black12,
                     ),
-                    controller: controllerEmail,
+                    controller: controllerPassword,
                     obscureText: false,
                     keyboardType: TextInputType.emailAddress,
-                    hintText: 'Insira o seu e-mail')),
-            const SizedBox(height: 10),
-            SizedBox(
-              width: 310,
-              child: TextFieldLogin(
-                  prefixIcon: const Icon(
-                    Icons.lock_outline,
-                    color: Colors.black12,
-                  ),
-                  controller: controllerPassword,
-                  obscureText: false,
-                  keyboardType: TextInputType.emailAddress,
-                  hintText: 'Insira a sua senha'),
-            ),
-            const SizedBox(height: 10),
-            const TextoWidget(
-              texto: 'Esqueceu a senha?',
-              size: 14,
-              fontFamily: '',
-              letterSpacing: 1,
-              corTexto: Color(0xFF58578F),
-            ),
-            const SizedBox(height: 40),
-            SizedBox(
-              width: 310,
-              height: 45,
-              child: ElevatedButton(
-                  onPressed: () {
-                    _validarCampos();
-                  },
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      backgroundColor: const Color(0xFF58578F)),
-                  child: const Center(
-                    child: TextoWidget(
-                      texto: 'Entrar',
-                      size: 16,
-                      fontFamily: 'Montserrat',
-                      letterSpacing: 1,
-                      corTexto: Colors.white,
-                    ),
-                  )),
-            )
-          ],
+                    hintText: 'Insira a sua senha'),
+              ),
+              const SizedBox(height: 10),
+              const TextoWidget(
+                texto: 'Esqueceu a senha?',
+                size: 14,
+                fontFamily: '',
+                letterSpacing: 1,
+                corTexto: Color(0xFF58578F),
+              ),
+              const SizedBox(height: 40),
+              SizedBox(
+                width: 310,
+                height: 45,
+                child: ElevatedButton(
+                    onPressed: () {
+                      _validarCampos();
+                    },
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        backgroundColor: const Color(0xFF58578F)),
+                    child: const Center(
+                      child: TextoWidget(
+                        texto: 'Entrar',
+                        size: 16,
+                        fontFamily: 'Montserrat',
+                        letterSpacing: 1,
+                        corTexto: Colors.white,
+                      ),
+                    )),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -228,6 +236,7 @@ class TextoWidget extends StatelessWidget {
           fontSize: size,
           fontFamily: fontFamily,
           letterSpacing: letterSpacing),
+      textAlign: TextAlign.center,
     );
   }
 }

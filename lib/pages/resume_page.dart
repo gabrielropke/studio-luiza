@@ -83,7 +83,7 @@ class _ResumePageState extends State<ResumePage> {
       'nome': nome,
       'email': email,
       'telefone': telefone,
-      'status': 'pendente',
+      'status': 'Pendente',
       'cep': cepController,
       'estado': ufController,
       'cidade': cidadeController,
