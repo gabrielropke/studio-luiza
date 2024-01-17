@@ -89,6 +89,8 @@ flutter:
     - assets/images/icone_wpp.png
     - assets/images/subtexto.png
     - assets/images/homepage_imagem.jpg
+    - assets/images/more_menor.png
+    - assets/images/more_maior.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

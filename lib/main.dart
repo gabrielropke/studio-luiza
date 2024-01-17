@@ -27,12 +27,3 @@ class MyApp extends StatelessWidget {
         home: const HomePage());
   }
 }
-
-// ModelWidgetPageTwo(
-//           servico: 'servico',
-//           horario: TimeOfDay(hour: 12, minute: 12),
-//           nome: 'nome',
-//           email: 'email',
-//           telefone: 'telefone',
-//           data: DateTime.now(),
-//         )

@@ -138,7 +138,7 @@ class _ResumePageState extends State<ResumePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 243, 243, 243),
+      backgroundColor: const Color.fromARGB(255, 243, 243, 243),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: SingleChildScrollView(
