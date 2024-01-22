@@ -2,7 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studio_luiza_web/model/usuario_model.dart';
-import 'package:studio_luiza_web/pages/admin/home_admin.dart';
+import 'package:studio_luiza_web/pages/admin/view/home_admin.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -82,19 +82,19 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               TextoWidget(
+              TextoWidget(
                 texto: 'Studio Luiza',
                 size: isMobilesmaller(context) ? 40 : 52,
                 fontFamily: 'Montserrat',
                 letterSpacing: 5,
-                corTexto: Color(0xFF58578F),
+                corTexto: const Color(0xFF58578F),
               ),
-               TextoWidget(
+              TextoWidget(
                 texto: 'Acesso somente para equipe',
                 size: isMobilesmaller(context) ? 12 : 16,
                 fontFamily: '',
                 letterSpacing: 5,
-                corTexto: Color(0xFF58578F),
+                corTexto: const Color(0xFF58578F),
               ),
               const SizedBox(height: 40),
               SizedBox(

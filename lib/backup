@@ -1,0 +1,67 @@
+// return SingleChildScrollView(
+//                 child: Column(
+//                   children: agendamentos!.map(
+//                     (agendamento) {
+//                       // ignore: unused_local_variable
+//                       var agendamentoId = agendamento.data()['agendamentoid'];
+//                       var horario = agendamento.data()['horario'];
+//                       var data = agendamento.data()['data'];
+//                       var servico = agendamento.data()['servico'];
+//                       var subservico = agendamento.data()['subservico'];
+//                       var status = agendamento.data()['status'];
+
+//                       return Column(
+//                         children: [
+//                           Visibility(
+//                             visible: formatarData(_selectedDay) ==
+//                                     formatarData(data.toDate()) &&
+//                                 status == 'Aprovado',
+//                             child: Padding(
+//                               padding: const EdgeInsets.only(
+//                                   top: 10, left: 10, right: 10),
+//                               child: Container(
+//                                 width: double.infinity,
+//                                 height: 80,
+//                                 decoration: BoxDecoration(
+//                                     color: servico == 'Maquiagem'
+//                                         ? const Color(0xFFDA728B)
+//                                         : servico == 'Cílios'
+//                                             ? const Color(0xFFAA73CA)
+//                                             : servico == 'Sobrancelha'
+//                                                 ? const Color(0xFF5284DA)
+//                                                 : servico == 'Manutenção'
+//                                                     ? const Color(0xFF40B9BE)
+//                                                     : Colors.white,
+//                                     borderRadius: BorderRadius.circular(8)),
+//                                 child: Center(
+//                                   child: ListTile(
+//                                       title: Container(
+//                                         padding:
+//                                             const EdgeInsets.only(bottom: 5),
+//                                         child: Text(
+//                                           '$servico - $subservico',
+//                                           style: const TextStyle(
+//                                               color: Colors.white,
+//                                               fontWeight: FontWeight.w500,
+//                                               fontSize: 16,
+//                                               letterSpacing: 2),
+//                                         ),
+//                                       ),
+//                                       subtitle: Text(
+//                                         '$horario - ${formatarData(data.toDate())}',
+//                                         style: const TextStyle(
+//                                             color: Colors.white,
+//                                             fontWeight: FontWeight.w400,
+//                                             fontSize: 14,
+//                                             letterSpacing: 2),
+//                                       )),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                         ],
+//                       );
+//                     },
+//                   ).toList(),
+//                 ),
+//               );

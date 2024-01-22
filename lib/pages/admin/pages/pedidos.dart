@@ -139,155 +139,179 @@ class AgendamentosList extends StatelessWidget {
             FirebaseFirestore.instance.collection('agendamentos').snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const CircularProgressIndicator();
+            return const Center(
+              child: SizedBox(
+                width: 30,
+                height: 30,
+                child: CircularProgressIndicator()),
+            );
           }
-      
+
           var agendamentos = snapshot.data?.docs;
-      
-          return Wrap(
-            spacing: 20,
-            runSpacing: 20,
-            children: agendamentos!.map((agendamento) {
-              var agendamentoId = agendamento.data()['agendamentoid'];
-              var servico = agendamento.data()['servico'];
-              var subservico = agendamento.data()['subservico'];
-              var status = agendamento.data()['status'];
-              var nomeCliente = agendamento.data()['nome'];
-              var horario = agendamento.data()['horario'];
-              var data = agendamento.data()['data'];
-              var rua = agendamento.data()['rua'];
-              var numero = agendamento.data()['numero'];
-              var bairro = agendamento.data()['bairro'];
-              var cidade = agendamento.data()['cidade'];
-              var uf = agendamento.data()['uf'];
-              var cep = agendamento.data()['cep'];
-              return Visibility(
-                visible: status == statusWidget,
-                child: Center(
-                  child: Container(
-                    width: 300,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 0,
-                          blurRadius: 12,
-                          offset: const Offset(3, 3),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ListTile(
-                          leading: Container(
-                            width: 50,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: gerarCorAleatoria()),
-                            child: Center(
-                              child: Text(
-                                nomeCliente.isNotEmpty
-                                    ? nomeCliente.substring(0, 1).toUpperCase()
-                                    : '', // Verifica se o nomeCliente não está vazio
-                                style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white),
-                              ),
+
+          var filteredAgendamentos = agendamentos
+              ?.where(
+                  (agendamento) => agendamento.data()['status'] == statusWidget)
+              .toList();
+
+          if (filteredAgendamentos == null || filteredAgendamentos.isEmpty) {
+            return Center(
+              child: Text(
+                'Nenhum pedido ${statusWidget.toLowerCase()} encontrado.',
+                style: const TextStyle(fontSize: 18, color: Colors.black26, fontFamily: 'Montserrat'), textAlign: TextAlign.center,
+              ),
+            );
+          }
+
+          return SingleChildScrollView(
+            child: Column(
+              children: filteredAgendamentos.map((agendamento) {
+                var agendamentoId = agendamento.data()['agendamentoid'];
+                var servico = agendamento.data()['servico'];
+                var subservico = agendamento.data()['subservico'];
+                var status = agendamento.data()['status'];
+                var nomeCliente = agendamento.data()['nome'];
+                var horario = agendamento.data()['horario'];
+                var data = agendamento.data()['data'];
+                var rua = agendamento.data()['rua'];
+                var numero = agendamento.data()['numero'];
+                var bairro = agendamento.data()['bairro'];
+                var cidade = agendamento.data()['cidade'];
+                var uf = agendamento.data()['uf'];
+                var cep = agendamento.data()['cep'];
+                return Visibility(
+                  visible: status == statusWidget,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 300,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              spreadRadius: 0,
+                              blurRadius: 12,
+                              offset: const Offset(3, 3),
                             ),
-                          ),
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    obterPrimeiroESegundoNome(nomeCliente),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      letterSpacing: 1,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 3),
-                                  Container(
-                                    width: 90,
-                                    height: 25,
-                                    decoration: BoxDecoration(
-                                        color: status == 'Aprovado'
-                                            ? Colors.green
-                                            : status == 'Cancelado'
-                                                ? const Color(0xFFEFA4A4)
-                                                : Colors.redAccent,
-                                        borderRadius: BorderRadius.circular(12)),
-                                    child: Center(
-                                        child: Text(
-                                      status,
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500),
-                                    )),
-                                  )
-                                ],
-                              ),
-                              GestureDetector(
-                                  onTap: () {
-                                    validarPedido(context, agendamentoId);
-                                  },
-                                  child: const Icon(Icons.more_horiz))
-                            ],
-                          ),
+                          ],
                         ),
-                        const SizedBox(height: 20),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Column(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ListTile(
+                              leading: Container(
+                                width: 50,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: gerarCorAleatoria()),
+                                child: Center(
+                                  child: Text(
+                                    nomeCliente.isNotEmpty
+                                        ? nomeCliente.substring(0, 1).toUpperCase()
+                                        : '', // Verifica se o nomeCliente não está vazio
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('$servico às ${horario}h',
-                                      style: const TextStyle(
-                                          fontSize: 15, letterSpacing: 1)),
-                                  const SizedBox(height: 10),
-                                  Row(
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                          '${formatarData(data.toDate())} - $subservico',
+                                        obterPrimeiroESegundoNome(nomeCliente),
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 3),
+                                      Container(
+                                        width: 90,
+                                        height: 25,
+                                        decoration: BoxDecoration(
+                                            color: status == 'Aprovado'
+                                                ? Colors.green
+                                                : status == 'Cancelado'
+                                                    ? const Color(0xFFEFA4A4)
+                                                    : Colors.redAccent,
+                                            borderRadius:
+                                                BorderRadius.circular(12)),
+                                        child: Center(
+                                            child: Text(
+                                          status,
                                           style: const TextStyle(
-                                              fontSize: 15, letterSpacing: 1)),
-                                      const SizedBox(width: 10),
-                                      if (subservico == 'Em domicílio')
-                                        GestureDetector(
-                                          onTap: () {
-                                            abrirEndereco(context, rua, numero,
-                                                bairro, cidade, uf, cep);
-                                          },
-                                          child: const Icon(
-                                            Icons.visibility_rounded,
-                                            color: Colors.black38,
-                                          ),
-                                        )
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w500),
+                                        )),
+                                      )
                                     ],
                                   ),
-                                  const SizedBox(height: 10),
-                                  PriceWidget(
-                                      servico: servico, subServico: subservico),
+                                  GestureDetector(
+                                      onTap: () {
+                                        validarPedido(context, agendamentoId);
+                                      },
+                                      child: const Icon(Icons.more_horiz))
                                 ],
-                              )),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('$servico às ${horario}h',
+                                          style: const TextStyle(
+                                              fontSize: 15, letterSpacing: 1)),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          Text(
+                                              '${formatarData(data.toDate())} - $subservico',
+                                              style: const TextStyle(
+                                                  fontSize: 15, letterSpacing: 1)),
+                                          const SizedBox(width: 10),
+                                          if (subservico == 'Em domicílio')
+                                            GestureDetector(
+                                              onTap: () {
+                                                abrirEndereco(context, rua, numero,
+                                                    bairro, cidade, uf, cep);
+                                              },
+                                              child: const Icon(
+                                                Icons.visibility_rounded,
+                                                color: Colors.black38,
+                                              ),
+                                            )
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      PriceWidget(
+                                          servico: servico, subServico: subservico),
+                                    ],
+                                  )),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 15)
+                    ],
                   ),
-                ),
-              );
-            }).toList(),
+                );
+              },
+              ).toList(),
+            ),
           );
         },
       ),

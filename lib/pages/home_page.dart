@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:studio_luiza_web/pages/admin/home_admin.dart';
+import 'package:studio_luiza_web/pages/admin/view/home_admin.dart';
 import 'package:studio_luiza_web/pages/admin/login_page.dart';
 import 'package:studio_luiza_web/pages/agendar_pageone.dart';
 import 'package:url_launcher/url_launcher.dart';

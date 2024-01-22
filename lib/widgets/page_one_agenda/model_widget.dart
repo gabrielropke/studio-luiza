@@ -57,30 +57,40 @@ class _ModelWidgetState extends State<ModelWidget> {
   void validarDados() {
     if (selectedContainer == '') {
       errorAlert('Você precisa escolher um serviço antes de continuar...');
-    } else if (controllerNome.text.isEmpty) {
-      errorAlert('Precisamos saber o seu nome completo...');
-    } else if (controllerEmail.text.isEmpty) {
-      errorAlert('Precisamos saber o seu e-mail...');
-    } else if (controllerTelefone.text.isEmpty) {
-      errorAlert('Precisamos do seu telefone de contato...');
-    }
-
-    if (selectedContainer != '' &&
-        controllerEmail.text.isNotEmpty &&
-        controllerEmail.text.isNotEmpty &&
-        controllerTelefone.text.isNotEmpty) {
+    } else if (controllerNome.text.isEmpty ||
+        !contemNomeESobrenome(controllerNome.text)) {
+      errorAlert('Precisamos do nome e sobrenome...');
+    } else if (controllerEmail.text.isEmpty ||
+        !controllerEmail.text.contains('@')) {
+      errorAlert('Informe um e-mail válido...');
+    } else if (controllerTelefone.text.isEmpty ||
+        !contemApenasNumeros(controllerTelefone.text) ||
+        controllerTelefone.text.length < 10) {
+      errorAlert('Informe um telefone válido...');
+    } else {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ModelWidgetPageTwo(
-                    servico: selectedContainer,
-                    horario: selectedTime,
-                    nome: controllerNome.text,
-                    email: controllerEmail.text,
-                    telefone: controllerTelefone.text,
-                    data: selectedDate,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => ModelWidgetPageTwo(
+            servico: selectedContainer,
+            horario: selectedTime,
+            nome: controllerNome.text,
+            email: controllerEmail.text,
+            telefone: controllerTelefone.text,
+            data: selectedDate,
+          ),
+        ),
+      );
     }
+  }
+
+  bool contemNomeESobrenome(String nomeCompleto) {
+    List<String> partes = nomeCompleto.split(' ');
+    return partes.length >= 2;
+  }
+
+  bool contemApenasNumeros(String texto) {
+    return RegExp(r'^[0-9]+$').hasMatch(texto);
   }
 
   @override
@@ -393,7 +403,7 @@ class _ModelWidgetState extends State<ModelWidget> {
                   maxLines: 1,
                   obscureText: false,
                   keyboardType: TextInputType.name,
-                  hintText: 'Digite aqui...'),
+                  hintText: 'Nome e sobrenome'),
               const SizedBox(height: 30),
               const Text(
                 'Qual o seu e-mail',
@@ -405,7 +415,7 @@ class _ModelWidgetState extends State<ModelWidget> {
                   maxLines: 1,
                   obscureText: false,
                   keyboardType: TextInputType.emailAddress,
-                  hintText: 'Digite aqui...'),
+                  hintText: 'seuemail@hotmail.com'),
               const SizedBox(height: 30),
               const Text(
                 'Digite o seu telefone',
@@ -417,7 +427,7 @@ class _ModelWidgetState extends State<ModelWidget> {
                   maxLines: 1,
                   obscureText: false,
                   keyboardType: TextInputType.phone,
-                  hintText: 'Digite aqui...'),
+                  hintText: '(xx) xxxxx-xxx)'),
               const SizedBox(height: 30),
               SizedBox(
                   width: double.infinity,

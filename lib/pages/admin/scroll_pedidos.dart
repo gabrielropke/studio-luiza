@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studio_luiza_web/pages/admin/widgets/pedidos.dart';
+import 'package:studio_luiza_web/pages/admin/pages/pedidos.dart';
 
 class scroll_pedidos extends StatefulWidget {
   const scroll_pedidos({Key? key}) : super(key: key);
@@ -9,6 +9,10 @@ class scroll_pedidos extends StatefulWidget {
 }
 
 class _scroll_pedidosState extends State<scroll_pedidos> {
+  bool isMobilesmaller(BuildContext context) =>
+      MediaQuery.of(context).size.width <= 450;
+  bool isMobilebigger(BuildContext context) =>
+      MediaQuery.of(context).size.width > 450;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,7 @@ class _scroll_pedidosState extends State<scroll_pedidos> {
               padding: const EdgeInsets.only(top: 10, left: 40, right: 40),
               child: Container(
                 height: 35,
+                width: 400,
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 244, 244, 243),
                   borderRadius: BorderRadius.circular(2),
@@ -35,11 +40,12 @@ class _scroll_pedidosState extends State<scroll_pedidos> {
                     borderRadius: BorderRadius.circular(2),
                   ),
                   labelColor: const Color.fromARGB(255, 0, 0, 0),
-                  unselectedLabelColor: const Color.fromARGB(255, 211, 207, 207),
+                  unselectedLabelColor:
+                      const Color.fromARGB(255, 211, 207, 207),
                   tabs: const [
                     Tab(
                       child: Text(
-                        'Pendente',
+                        'Pendentes',
                         style: TextStyle(fontSize: 12),
                       ),
                     ),
